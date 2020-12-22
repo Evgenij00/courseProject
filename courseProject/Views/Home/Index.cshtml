@@ -1,8 +1,119 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    //Вначале объявляется заголовок с помощью выражения ViewData["Title"] = "Каталог товаров".
+    //Этот заголовок затем вставляется на мастер-страницу.
+    ViewData["Title"] = "Тестики";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="home-container">
+
+    <!-- Основная часть -->
+    <div class="container pt-5">
+
+        <!-- Заголовки -->
+        <div class="titles mb-5">
+            <h1>Тесты онлайн</h1>
+            <h2>психологические, образовательные, IQ</h2>
+        </div>
+
+
+
+        <!-- Категории, Фильтрация и Сортировка -->
+        <div class="config d-flex justify-content-between mb-5">
+
+            <!-- Контейнер (Категории и фильтрация)-->
+            <div class="d-flex">
+
+                <div class="dropdown mr-2">
+                    <button class="btn btn-light  dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Категория
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                        <a class="dropdown-item" href="~/Home/Category">Имя категории</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Фильтр
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item">Фильтр 1</button>
+                        <button class="dropdown-item">Фильтр 2</button>
+                        <button class="dropdown-item">Фильтр 3</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Популярность -->
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Популярность
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item">Сортировка 1</button>
+                    <button class="dropdown-item">Сортировка 2</button>
+                    <button class="dropdown-item">Сортировка 3</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Карточки -->
+        <div class="d-flex flex-wrap justify-content-between">
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+            <a class="test" href="~/Home/Test">
+                <div class="icon">
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+                </div>
+                <p class="name">Название теста</p>
+            </a>
+
+        </div>
+        <!-- Карточки -->
+
+    </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
