@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Уникальный тест";
+}
+
+<div class="test-container">
+
+    <div class="close-test">
+        <a class="btn-close" href="/">&times;</a>
+    </div>
+
+    <div class="container pt-5">
+        <div id="test-id" data-id=""></div>
+        <div class="test-param">
+            <div class="icon_test">
+                <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="Иконка">
+            </div>
+            <h1>Название теста</h1>
+            <form action="~/Home/Question" method="post">
+                <input type="hidden" name="id" value="" />
+                <button type="submit" class="btn btn-dark" id="btn-start">Начать тест</button>
+            </form>
+            <div class="description">
+                <p>Большинство тестов IQ для детей не подходят, так как изначально они разрабатываются для взрослой части населения. Но, если имеется желание узнать коэффициент интеллекта ребенка с возрастом от 7 до 16 лет, есть несколько тестов, способных вам помочь. Среди них есть тест на IQ для детей, разработанный на основе теста интеллекта П. Ржичана. Ребенку будет представлен ряд из трех картинок, расположенных с некоторой закономерностью. Необходимо будет выбрать из представленных ниже шести картинок подходящую на пустую ячейку. Первые четыре вопроса стоит проходить совместно с ребенком, чтобы он понял суть задания. Приступим?</p>
+            </div>
+            <p class="autors">Автор теста:  Ржичан П.</p>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/test.js"></script> 
