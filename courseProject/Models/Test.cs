@@ -15,5 +15,6 @@ namespace myCourseProject.Models
         public int NumberOfQuestions { get; set; }
 
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
