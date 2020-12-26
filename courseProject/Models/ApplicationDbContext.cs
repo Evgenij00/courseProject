@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace myCourseProject.Models
+namespace courseProject.Models
 {
     public class ApplicationDbContext : DbContext //Чтобы создать контекст, нам надо унаследовать новый класс от класса DbContext (AplicationContext)
     {

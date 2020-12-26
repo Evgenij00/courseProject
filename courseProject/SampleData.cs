@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using myCourseProject.Models; //для TestsContext
+using courseProject.Models; //для TestsContext
 
-namespace myCourseProject
+namespace courseProject
 {
     public static class SampleData
     {

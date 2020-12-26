@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace myCourseProject.Models
+namespace courseProject.Models
 {
     public class Test
     {
