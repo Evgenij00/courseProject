@@ -45,6 +45,29 @@ namespace courseProject.Controllers
             return View(model);
             //TODO: Решить, создавать контейнер для нескольких моделей или все передавать через ViewBag
         }
+
+        
+        public IActionResult Category(int? id)  // контроллер для страницы c уникальной категорией
+        {
+            if (id == null) return RedirectToAction("Index"); //выполняем переадресацию на метод Index, который выводит список тестов.
+
+            Category category = DataContext.Categories.FirstOrDefault<Category>(c => c.Id == id);
+
+            if (category != null)
+            {
+                //ViewBag.Categories = DataContext.Categories.OrderBy(c => c.Id);
+                //ViewBag.Tests = DataContext.Tests;
+                //ViewBag.Test = DataContext.Tests.Find(id);
+
+                ViewBag.Categories = DataContext.Categories;
+                ViewBag.Tests = from t in DataContext.Tests
+                                where (t.CategoryId == id)
+                                select t;
+
+                return View(category);
+            }
+            return NotFound();
+        }
     }
 }
 //Во-первых, здесь удалены все ненужные нам методы - все кроме метода Index,
