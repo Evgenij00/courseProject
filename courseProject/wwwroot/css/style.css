@@ -1,1 +1,289 @@
-﻿
+﻿/* Общие стили */
+* {
+    box-sizing: border-box;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/* / Общие стили */
+
+/* Отдельные компоненты */
+
+/* Кнопка гамбургер */
+.menu-btn {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
+        position: absolute;
+        top: 50%;
+        margin-top: -1px;
+        left: 50%;
+        margin-left: -10px;
+        width: 20px;
+        height: 2px;
+        background-color: rgb(26, 25, 25);
+    }
+
+        .menu-btn span::before,
+        .menu-btn span::after {
+            content: '';
+        }
+
+        .menu-btn span::before {
+            transform: translateY(-5px);
+        }
+
+        .menu-btn span::after {
+            transform: translateY(5px);
+        }
+/* / Кнопка гамбургер */
+
+
+/* Боковая панель */
+.sidebar {
+    position: absolute;
+    background-color: rgb(62, 57, 90);
+    min-width: 250px;
+    z-index: 1;
+}
+
+.categories {
+    padding: 20px 20px;
+}
+
+.cat-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid rgb(170, 166, 166);
+    border-radius: 5px;
+    /* TODO: последнему элементу убрать */
+    margin-bottom: 10px;
+    color: #fff;
+}
+/* / Боковая панель */
+
+/* Основные Карточки */
+.test {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 500px;
+    /* height: 75px; */
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background-color: rgb(44, 126, 235);
+    color: azure;
+    border-radius: 5px;
+}
+
+/* .icon {
+    padding-left: 20px;
+} */
+
+.icon img {
+    height: 75px;
+    width: auto;
+}
+
+.name {
+    flex-grow: 1;
+    text-align: center;
+}
+/* / Основные Карточки */
+
+/* Форма регистрации и авторизации */
+.login-container {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(130, 212, 245);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-basis: 500px;
+    height: 400px;
+    padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: rgb(194, 208, 248);
+    border-radius: 5px;
+}
+
+.title,
+.link-auth {
+    align-self: center;
+}
+
+.link-help-pass {
+    align-self: flex-end;
+}
+/* / Форма регистрации и авторизации */
+
+/* Кнопка закрытия вопроса и самого теста */
+.close-test {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 15px;
+}
+
+.btn-close {
+    font-size: 3em;
+}
+/* / Кнопка закрытия вопроса и самого теста */
+
+/* / Отдельные компоненты */
+
+
+/* Index.html /////////////////////////////////////////////////////////////////////////////////////*/
+.home-container {
+    background-color: rgb(122, 109, 231);
+}
+/* / Index.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+
+/* Category.html /////////////////////////////////////////////////////////////////////////////////////*/
+.category-container {
+    background-color: rgb(218, 190, 190);
+}
+
+.category-param {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon_test {
+    width: 50px;
+    height: 100px;
+}
+
+    .icon_test img {
+        height: 100%;
+        width: auto;
+    }
+/* / Category.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/* Account.html /////////////////////////////////////////////////////////////////////////////////////*/
+.account-container {
+    background-color: rgb(178, 173, 184);
+}
+
+.inner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons {
+    margin-bottom: 40px;
+}
+
+/* Карточки для кнопки "Я" */
+.container-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 15rem;
+    /* временно */
+    height: 250px;
+}
+/* / Карточки для кнопки "Я" */
+
+.settings {
+    /* position: absolute; */
+    display: inline-block;
+    background-color: rgb(195, 228, 241);
+    padding: 5px;
+}
+
+.setting1 {
+    background-color: rgb(195, 228, 241);
+    padding: 20px;
+}
+
+.setting2 {
+    background-color: rgb(195, 228, 241);
+    padding: 20px;
+}
+/* / Account.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+
+/* Question.html /////////////////////////////////////////////////////////////////////////////////////*/
+.question-container {
+    background-color: rgb(122, 109, 231);
+}
+
+.num-quest-wrap {
+    padding: 0 10px;
+}
+
+.num-quest {
+    font-size: 3em;
+}
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+}
+
+.answer {
+    margin-bottom: 30px;
+}
+/* / Question.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Result.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+.top-content {
+    background-color: rgb(96, 60, 155);
+}
+
+    .top-content button {
+        margin: 10px 20px 0;
+    }
+/* / Result.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Test.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+.test-container {
+    background-color: darkslateblue;
+}
+
+.test-param {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: antiquewhite;
+}
+
+.description {
+    align-self: flex-start;
+}
+/* / Test.html /////////////////////////////////////////////////////////////////////////////////////*/
