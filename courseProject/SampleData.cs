@@ -104,6 +104,28 @@ namespace courseProject
                 Category = category1,
             };
 
+            Question question1 = new Question
+            {
+                //Id = 1,
+                Name = "Какой из этих образов тебе нравится больше всего?",
+                Number = 1,
+                Test = test6,
+            };
+            Question question2 = new Question
+            {
+                //Id = 2,
+                Name = "Какое свидание тебе ближе всего?",
+                Number = 2,
+                Test = test6,
+            };
+            Question question3 = new Question
+            {
+                //Id = 3,
+                Name = "Чтобы ты подарил своей девушке?",
+                Number = 3,
+                Test = test6,
+            };
+
             if (!context.Categories.Any())
             {
                 context.Categories.AddRange(category1, category2, category3, category4, category5);
@@ -114,6 +136,12 @@ namespace courseProject
             if (!context.Tests.Any())
             {
                 context.Tests.AddRange(test1, test2, test3, test4, test5, test6);
+                context.SaveChanges();
+            }
+
+            if (!context.Questions.Any())
+            {
+                context.Questions.AddRange(question1, question2, question3);
                 context.SaveChanges();
             }
         }
