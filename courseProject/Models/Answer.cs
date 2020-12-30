@@ -5,15 +5,14 @@ using System.Threading.Tasks;
 
 namespace courseProject.Models
 {
-    public class Question
+    public class Answer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Number { get; set; }
+        public int Score { get; set; }
 
-        public int TestId { get; set; }
-        public Test Test { get; set; }
+        public int QuestionId { get; set; }
 
-        public List<Answer> Answers { get; set; }
+        public Question Question { get; set; }
     }
 }
