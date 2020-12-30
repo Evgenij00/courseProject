@@ -126,6 +126,78 @@ namespace courseProject
                 Test = test6,
             };
 
+             Answer answer1 = new Answer
+            {
+                //Id = 1,
+                Name = "Стараетесь разрешить проблему",
+                Score = 1,
+                Question = question1,
+            };
+
+            Answer answer2 = new Answer
+            {
+                //Id = 2,
+                Name = "Ищите союзников в поддержку",
+                Score = 2,
+                Question = question1,
+            };
+
+            Answer answer3 = new Answer
+            {
+                //Id = 3,
+                Name = "Стараетесь отвлечься, чтобы прийти в себя.",
+                Score = 3,
+                Question = question1,
+            };
+
+            Answer answer4 = new Answer
+            {
+                //Id = 4,
+                Name = "Собственных ошибочных решений или действий",
+                Score = 1,
+                Question = question2,
+            };
+
+            Answer answer5 = new Answer
+            {
+                //Id = 5,
+                Name = "Собственных ошибок и зловредных посторонних людей",
+                Score = 2,
+                Question = question2,
+            };
+
+            Answer answer6 = new Answer
+            {
+                //Id = 6,
+                Name = "Зловредных посторонних",
+                Score = 3,
+                Question = question2,
+            };
+
+            Answer answer7 = new Answer
+            {
+                //Id = 7,
+                Name = "Демонстрации силы",
+                Score = 1,
+                Question = question3,
+            };
+
+            Answer answer8 = new Answer
+            {
+                //Id = 8,
+                Name = "Терпении",
+                Score = 2,
+                Question = question3,
+            };
+
+            Answer answer9 = new Answer
+            {
+                //Id = 9,
+                Name = "Умении вовремя закрыть рот.",
+                Score = 3,
+                Question = question3,
+            };
+
             if (!context.Categories.Any())
             {
                 context.Categories.AddRange(category1, category2, category3, category4, category5);
@@ -142,6 +214,12 @@ namespace courseProject
             if (!context.Questions.Any())
             {
                 context.Questions.AddRange(question1, question2, question3);
+                context.SaveChanges();
+            }
+
+            if (!context.Answers.Any())
+            {
+                context.Answers.AddRange(answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9);
                 context.SaveChanges();
             }
         }
