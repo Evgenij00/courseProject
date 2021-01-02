@@ -100,6 +100,40 @@ namespace courseProject.Controllers
             //ViewBag.TestId = id;
             //return View();
         }
+
+        [HttpPost]
+        public IActionResult Question(int? id, int num = 1, int answer_score = 0)  // контроллер для страницы с уникальным тестом
+        {
+            if (id == null) return RedirectToAction("Index"); //выполняем переадресацию на метод Index, который выводит список тестов.
+
+            //Test test = DataContext.Tests.Include(t => t.Questions).FirstOrDefault<Test>(t => t.Id == id);
+
+            Test test = DataContext.Tests.FirstOrDefault(test => test.Id == id);
+
+            //TODO: подумать, как упростить запрос. Найти нужный вопрос через тест, а не через контекст данных
+            Question q = DataContext.Questions.Include(q => q.Answers).FirstOrDefault<Question>(q => q.TestId == id && q.Number == num);
+
+            if (q != null)
+            {
+                //return View(test);
+                //List<Question> questions = test.Questions
+                //return Ok(questions);
+                //Response.Write(questions
+                //ViewBag.Categories = DataContext.Categories.OrderBy(c => c.Id);
+
+
+                ViewBag.Categories = DataContext.Categories;
+                ViewBag.Test = test;
+
+                //foreach(var a in q.Answers.OrderBy(a => a.Id))
+                foreach (var a in q.Answers)
+                {
+                    a.Score = a.Score + answer_score;
+                }
+                return View(q);
+            }
+            return NotFound();
+        }
     }
 }
 //Во-первых, здесь удалены все ненужные нам методы - все кроме метода Index,
