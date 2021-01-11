@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
                 <input class="form-control mr-sm-2" type="search" placeholder="Введите название..." aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
             </form>
-            <a href="./log-in.html" type="button" class="btn btn-danger">Войти</a>
+            <a asp-controller="Account" asp-action="Login" type="button" class="btn btn-danger">Войти</a>
         </div>
     </nav>
 
@@ -32,7 +32,7 @@
         <ul class="categories">
             @foreach (var category in ViewBag.Categories)
             {
-            <li><a class='cat-item' href="~/Home/Category/@category.Id">@category.Name</a></li>
+                <li><a class='cat-item' asp-controller="Home" asp-action="Category" asp-route-id="@category.Id">@category.Name</a></li>
             }
         </ul>
     </div>
