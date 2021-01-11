@@ -1,4 +1,4 @@
-﻿@model courseProject.Models.Category;
+﻿@model courseProject.ViewModels.CategoryViewModel;
 
 @{
     ViewData["Title"] = "Категория";
@@ -10,11 +10,10 @@
         <!-- Заголовки -->
         <div class="category-param mb-5">
 
-            <!-- TODO: добавить иконку -->
             <div class="icon_test">
-                <img src="@Model.Icon" alt="Иконка">
+                <img src="@Model.Category.Icon" alt="Иконка">
             </div>
-            <h1>@Model.Name</h1>
+            <h1>@Model.Category.Name</h1>
         </div>
 
 
@@ -29,7 +28,8 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (var category in ViewBag.Categories)
                         {
-                            <a class="dropdown-item" href="~/Home/Category/@category.Id">@category.Name</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Category"
+                           asp-route-id="@category.Id">@category.Name</a>
                         }
                     </div>
                 </div>
@@ -59,9 +59,9 @@
         <!-- Карточки -->
         <div class="d-flex flex-wrap justify-content-between">
 
-            @foreach (var test in ViewBag.Tests)
+            @foreach (Test test in Model.Tests)
             {
-                <a class="test" href="~/Home/Test/@test.Id">
+                <a class="test" asp-controller="Test" asp-action="Index" asp-route-id="@test.Id">
                     <div class="icon">
                         <img src="@test.Icon" alt="Иконка">
                     </div>
@@ -69,11 +69,7 @@
                 </a>
             }
 
-            @*<a class="test" href="~/Home/Test/@ViewBag.Test.Id">
-                    <img src="@ViewBag.Test.Icon" alt="Иконка">
-                    <span>@ViewBag.Test.Name</span>
-                </a>*@
-
+         
         </div>
 
     </div>
