@@ -5,8 +5,9 @@
 }
 
 <div class="test-container">
+
     <div class="close-test">
-        <a class="btn-close" href="/">&times;</a>
+        <a class="btn-close" asp-controller="Home" asp-action="Index">&times;</a>
     </div>
 
     <div class="container pt-5">
@@ -16,7 +17,8 @@
                 <img src="@Model.Icon" alt="Иконка">
             </div>
             <h1>@Model.Name</h1>
-            <form action="~/Home/Question/@Model.Id" method="post">
+
+            <form asp-controller="Test" asp-action="Question" asp-route-id="@Model.Id" method="post">
                 <input type="hidden" name="id" value="@Model.Id" />
                 <button type="submit" class="btn btn-dark" id="btn-start">Начать тест</button>
             </form>
@@ -27,4 +29,3 @@
         </div>
     </div>
 </div>
-<script src="~/js/test.js"></script> 
