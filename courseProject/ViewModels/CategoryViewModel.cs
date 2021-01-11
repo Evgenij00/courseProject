@@ -1,4 +1,4 @@
-﻿using CourseProject.Models;
+﻿using courseProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

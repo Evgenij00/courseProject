@@ -52,38 +52,6 @@ namespace courseProject.Controllers
             return NotFound();
         }
 
-        [HttpGet]
-        public IActionResult Test(int? id)  // контроллер для страницы с уникальным тестом
-        {
-            if (id == null) return RedirectToAction("Index"); //выполняем переадресацию на метод Index, который выводит список тестов.
-
-            //Test test = DataContext.Tests.FirstOrDefault<Test>(t => t.Id == id);
-
-            //TODO: разобраться, как вызвать Include после отбора данных по условию. (Пока вызывается перед отбором)
-            var test = DataContext.Tests.Include(t => t.Questions.OrderBy(q => q.Number)).FirstOrDefault<Test>(t => t.Id == id);
-
-            if (test != null)
-            {
-                //TODO: сделать сортировку
-                //List<Question> questions = test.Questions;
-                //Response.Write(questions);
-                //ViewBag.Categories = DataContext.Categories.OrderBy(c => c.Id);
-
-
-                ViewBag.Categories = DataContext.Categories;
-                return View(test);
-            }
-            return NotFound();
-
-            //Чтобы передать id теста в представление применяется объект ViewBag.
-            //ViewBag представляет такой объект,
-            //который позволяет определить любую переменную и передать ей некоторое значение,
-            //а затем в представлении извлечь это значение.
-            //Так, мы определяем переменную ViewBag.TestId, которая и будет хранить id выбранного теста.
-            //ViewBag.TestId = id;
-            //return View();
-        }
-
         [HttpPost]
         public IActionResult Question(int? id, int num = 1, int answer_score = 0)  // контроллер для страницы с уникальным тестом
         {
