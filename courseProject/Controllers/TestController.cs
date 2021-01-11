@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using courseProject.Models;
+using myCourseProject.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,34 @@ namespace myCourseProject.Controllers
                 return View(test);
             }
             return NotFound();
+        }
+
+        public IActionResult Question(int? id, int number = 1, int test_score = 0)
+        {
+            if (id == null) return RedirectToAction("Index");
+
+            Test test = DataContext.Tests.FirstOrDefault(test => test.Id == id);
+
+            //TODO: подумать, как упростить запрос. Найти нужный вопрос через тест, а не через контекст данных
+            Question question = DataContext.Questions.Include(q => q.Answers).FirstOrDefault<Question>(q => q.TestId == id && q.Number == number);
+
+            if (question != null)
+            {
+                QuestionViewModel model = new QuestionViewModel();
+
+                model.Test = test;
+                model.Question = question;
+
+                foreach (var answer in question.Answers)
+                {
+                    answer.Score = answer.Score + test_score;
+                }
+                return View(model);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
