@@ -33,22 +33,21 @@ namespace courseProject.Controllers
         
         public IActionResult Category(int? id)  // контроллер для страницы c уникальной категорией
         {
-            if (id == null) return RedirectToAction("Index"); //выполняем переадресацию на метод Index, который выводит список тестов.
+            //выполняем переадресацию на метод Index, который выводит список тестов.
+            if (id == null) return RedirectToAction("Index");
 
-            Category category = DataContext.Categories.FirstOrDefault<Category>(c => c.Id == id);
+            Category currentCategory = DataContext.Categories.FirstOrDefault(c => c.Id == id);
 
-            if (category != null)
+            if (currentCategory != null)
             {
-                //ViewBag.Categories = DataContext.Categories.OrderBy(c => c.Id);
-                //ViewBag.Tests = DataContext.Tests;
-                //ViewBag.Test = DataContext.Tests.Find(id);
+                CategoryViewModel model = new CategoryViewModel();
 
-                ViewBag.Categories = DataContext.Categories;
-                ViewBag.Tests = from t in DataContext.Tests
-                                where (t.CategoryId == id)
-                                select t;
+                model.Category = currentCategory;
+                model.Tests = from t in DataContext.Tests
+                              where (t.CategoryId == id)
+                              select t; ;
 
-                return View(category);
+                return View(model);
             }
             return NotFound();
         }
