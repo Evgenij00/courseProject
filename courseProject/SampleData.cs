@@ -245,6 +245,12 @@ namespace courseProject
                 context.Answers.AddRange(answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9);
                 context.SaveChanges();
             }
+
+            if (!context.ResultTests.Any())
+            {
+                context.ResultTests.AddRange(result1, result2, result3);
+                context.SaveChanges();
+            }
         }
     }
 }
