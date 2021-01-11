@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection; // CreateScope()
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using courseProject.Models;
 
 namespace courseProject
@@ -15,9 +11,6 @@ namespace courseProject
     {
         public static void Main(string[] args)
         {
-            //CreateHostBuilder(args).Build().Run(); // 
-            ///////////////////////////////////////////////////////////////
-
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
