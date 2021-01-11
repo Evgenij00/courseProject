@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using courseProject.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,12 @@ namespace courseProject.Controllers
         public ApplicationController(ApplicationDbContext context) //конструктор, в котором получаем контекст данных
         {
             _db = context;
+        }
+        
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            ViewBag.Categories = DataContext.Categories;
         }
     }
 }
