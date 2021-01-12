@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace myCourseProject.ViewModels
+namespace courseProject.ViewModels
 {
     public class QuestionViewModel
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using courseProject.Models;
-using myCourseProject.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using courseProject.Controllers;
+using courseProject.ViewModels;
 
 namespace myCourseProject.Controllers
 {
