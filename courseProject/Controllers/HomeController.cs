@@ -51,41 +51,6 @@ namespace courseProject.Controllers
             }
             return NotFound();
         }
-
-        [HttpPost]
-        public IActionResult Result(int? id, int answer_score)  // контроллер для страницы с уникальным тестом
-        {
-            if (id == null) return RedirectToAction("Index"); //выполняем переадресацию на метод Index, который выводит список тестов.
-
-            Test test = DataContext.Tests.Include(t => t.ResultTests).FirstOrDefault<Test>(t => t.Id == id);
-            Category category = DataContext.Categories.FirstOrDefault<Category>(c => c.Id == test.CategoryId);
-
-            //ResultTest r = DataContext.ResultTests.FirstOrDefault<ResultTest>(r => r.TestId == id);
-
-            if (test != null)
-            {
-                //ViewBag.Categories = DataContext.Categories.OrderBy(c => c.Id);
-
-
-                ViewBag.Categories = DataContext.Categories;
-                ViewBag.Test = test;
-                ViewBag.Category = category;
-
-                ResultTest result = new ResultTest();
-
-                foreach (var r in test.ResultTests.OrderByDescending(r => r.Scores))
-                {
-                    if (answer_score <= r.Scores)
-                    {
-                        result = r;
-                    }
-                }
-
-                return View(result);
-            }
-            return NotFound();
-
-        }
     }
 }
 //Во-первых, здесь удалены все ненужные нам методы - все кроме метода Index,

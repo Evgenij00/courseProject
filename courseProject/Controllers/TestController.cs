@@ -57,5 +57,33 @@ namespace myCourseProject.Controllers
                 return NotFound();
             }
         }
+        public IActionResult Result(int? id, int test_score)
+        {
+            if (id == null) return RedirectToAction("Index");
+
+            Test test = DataContext.Tests.Include(t => t.ResultTests).FirstOrDefault<Test>(t => t.Id == id);
+            Category category = DataContext.Categories.FirstOrDefault<Category>(c => c.Id == test.CategoryId);
+
+            if (test != null)
+            {
+                ResultViewModel model = new ResultViewModel();
+
+                model.Test = test;
+                model.Category = category;
+
+                foreach (var result in test.ResultTests.OrderByDescending(r => r.Scores))
+                {
+                    if (test_score <= result.Scores)
+                    {
+                        model.ResultTest = result;
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
     }
 }
