@@ -1,4 +1,4 @@
-﻿@model courseProject.Models.ResultTest;
+﻿@model courseProject.ViewModels.ResultViewModel;
 
 @{
     ViewData["Title"] = "Результат теста";
@@ -6,12 +6,12 @@
 
 <div class="top-content">
 
-    <a href="~/" class="btn btn-secondary">К тестам</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">К тестам</a>
 
     <div class="container pt-5">
         <div class="d-flex flex-column align-items-center">
-            <h2>Тесты / @ViewBag.Category.Name</h2>
-            <h1>@ViewBag.Test.Name</h1>
+            <h2>Тесты / @Model.Category.Name</h2>
+            <h1>@Model.Test.Name</h1>
         </div>
     </div>
 </div>
@@ -19,6 +19,6 @@
 <div class="middle-content">
     <div class='container pt-5'>
         <h1>Ваши результаты</h1>
-        <p>@Model.Description</p>
+        <p>@Model.ResultTest.Description</p>
     </div>
 </div> 
