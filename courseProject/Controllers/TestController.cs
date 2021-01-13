@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using courseProject.Controllers;
 using courseProject.ViewModels;
 
-namespace myCourseProject.Controllers
+namespace courseProject.Controllers
 {
     public class TestController : ApplicationController
     {
