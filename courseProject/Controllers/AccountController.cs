@@ -76,6 +76,14 @@ namespace courseProject.Controllers
             return View(model);
         }
 
+        //Для выхода из сайта определен метод Logout, суть которого в вызове метода.
+        //В этот метод опять же передается название схемы аутентификации, использованное в классе Startup.
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
+        }
+
         private async Task Authenticate(string userName)
         {
             // создаем один claim
