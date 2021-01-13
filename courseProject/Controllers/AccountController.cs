@@ -52,6 +52,30 @@ namespace courseProject.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+                if (user != null)
+                {
+                    await Authenticate(model.Email); // аутентификация
+
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            }
+            return View(model);
+        }
+
         private async Task Authenticate(string userName)
         {
             // создаем один claim
