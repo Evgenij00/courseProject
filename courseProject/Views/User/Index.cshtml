@@ -1,0 +1,107 @@
+﻿@model myCourseProject.Models.User;
+
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<div class="account-container">
+    <div class="container pt-5">
+
+        <div class="settings">
+            <button type="button" class="btn btn-dark" id="btn-setting1">Настройки 1</button>
+            <button type="button" class="btn btn-dark" id="btn-setting2">Настройки 2</button>
+        </div>
+
+        <form asp-controller="User" asp-action="ChangePersonalData" class='setting d-none' id="setting1">
+            <div class="row">
+                <div class="col">
+                    <label for="first-name">Имя:*</label>
+                    <input asp-for="FirstName" type="text" value="@Model.FirstName" class="form-control" id='first-name' placeholder="Введите имя...">
+                </div>
+                <div class="col">
+                    <label for="last-name">Фамилия:</label>
+                    <input asp-for="LastName" type="text" value="@Model.LastName" class="form-control" id='last-name' placeholder="Введите фамилию...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div>Пол:*</div>
+                    <div class="form-check form-check-inline">
+                        <input asp-for="Gender" class="form-check-input" type="radio" name="gender" id="man" value="1">
+                        <label class="form-check-label" for="man">Мужской</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input asp-for="Gender" class="form-check-input" type="radio" name="gender" id="woman" value="2">
+                        <label class="form-check-label" for="woman">Женский</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <label class="form-check-label" for="birthday">Дата Рождения:*</label>
+                    <input asp-for="Birthday" type="date" value="@Model.Birthday.Date.ToString("d")" class="form-control" id='birthday' placeholder="Birthday">
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success">
+            <button type="button" class="btn btn-danger">Отменить</button>
+        </form>
+
+        <form asp-controller="User" asp-action="ChangeRegisterData" class='setting d-none' id="setting2">
+            <div class="form-group">
+                <label for="email">Ваш Email:*</label>
+                <input asp-for="Email" type="email" value="@Model.Email" class="form-control" id="email" placeholder="Введите Email...">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="email">Новый пароль:*</label>
+                    <input asp-for="Password" type="password" value="@Model.Password" class="form-control" placeholder="Введите пароль...">
+                </div>
+                @* TODO: Повтор пароля на потом *@
+            </div>
+            <input type="submit" class="btn btn-success">
+            <button type="button" class="btn btn-danger">Отменить</button>
+        </form>
+
+        <div class="inner-content">
+            <div class="avatar">
+                <img src="https://avatars0.githubusercontent.com/u/49844107?s=460&u=c43ff86775817a093fa6adbfda03f3b26a0acdda&v=4" alt="avatar">
+            </div>
+
+            <h1 class="">@Model.FirstName</h1>
+
+            <h2>Мои тесты</h2>
+        </div>
+
+        <!-- Карточки -->
+        <div class="d-flex flex-wrap justify-content-between">
+
+            <a class="test" href="pages/test.html">
+                <div class='icon'>
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
+                </div>
+                <p class='name'>Название теста</p>
+            </a>
+
+            <a class="test" href="pages/test.html">
+                <div class='icon'>
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
+                </div>
+                <p class='name'>Название теста</p>
+            </a>
+
+            <a class="test" href="pages/test.html">
+                <div class='icon'>
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
+                </div>
+                <p class='name'>Название теста</p>
+            </a>
+
+            <a class="test" href="pages/test.html">
+                <div class='icon'>
+                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
+                </div>
+                <p class='name'>Название теста</p>
+            </a>
+
+        </div>
+        <!-- Карточки -->
+    </div>
+</div>
