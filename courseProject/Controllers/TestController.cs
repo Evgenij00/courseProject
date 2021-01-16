@@ -78,5 +78,13 @@ namespace courseProject.Controllers
                 return NotFound();
             }
         }
+
+        [NonAction]
+        public async Task<int> GetUserId()
+        {
+            string userName = User.Identity.Name;
+            User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
+            return currentUser.Id;
+        }
     }
 }
