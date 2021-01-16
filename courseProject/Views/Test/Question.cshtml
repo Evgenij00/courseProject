@@ -31,7 +31,7 @@
                 }
 
                 @*TODO: использовать tagHelpers*@
-                <input type="hidden" name="id" value="@Model.Test.Id" />
+                <input type="hidden" name="testId" value="@Model.Test.Id" />
                 <input type="hidden" name="number" value="@(Model.Question.Number + 1)" />
 
                 <button type="submit" class="btn btn-secondary">Далее</button>
@@ -50,7 +50,7 @@
                 }
 
                 @*TODO: использовать tagHelpers*@
-                <input type="hidden" name="id" value="@Model.Test.Id" />
+                <input type="hidden" name="testId" value="@Model.Test.Id" />
 
                 <button type="submit" class="btn btn-secondary">Завершить</button>
             </form>
