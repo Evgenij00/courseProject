@@ -6,8 +6,9 @@ using courseProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Linq;
-using сourseProject.ViewModels;
 using System.Collections.Generic;
+using courseProject.ViewModels;
+using сourseProject.ViewModels;
 
 namespace courseProject.Controllers
 {
