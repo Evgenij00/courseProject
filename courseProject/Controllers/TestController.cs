@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using courseProject.Models;
+using courseProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using courseProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using courseProject.ViewModels;
 
 namespace courseProject.Controllers
 {
@@ -13,19 +12,17 @@ namespace courseProject.Controllers
     {
         public TestController(ApplicationDbContext context) : base(context) { }
 
-        //[Route("Speaker/{id:int}")]
-        //[Route("/Speaker/Evaluations", Name = "speakerevals")]
-        public IActionResult Index(int? id) //TODO: использовать модель
+        [Authorize]
+        public async Task<IActionResult> IndexAsync(int? testId)
         {
-            if (id == null) return RedirectToAction("Index", "Home");
+            if (testId == null) return RedirectToAction("Index", "Home");
 
-            //TODO: разобраться, как вызвать Include после отбора данных по условию. (Пока вызывается перед отбором)
-            Test test = DataContext.Tests.Include(t => t.Questions.OrderBy(q => q.Number)).FirstOrDefault<Test>(t => t.Id == id);
-
+            Test test = await DataContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
             if (test != null)
             {
                 return View(test);
             }
+
             return NotFound();
         }
 
@@ -56,6 +53,7 @@ namespace courseProject.Controllers
                 return NotFound();
             }
         }
+
         public IActionResult Result(int? id, int test_score)
         {
             if (id == null) return RedirectToAction("Index");
