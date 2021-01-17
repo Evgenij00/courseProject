@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Helpers;
 using courseProject.Models;
 using сourseProject.ViewModels;
 
@@ -18,8 +19,6 @@ namespace courseProject.Controllers
             return View();
         }
 
-        //Метод Register сделан аналогично методу Login, только теперь мы получаем данные регистрации через объект RegisterModel
-        //и перед аутентификацией сохраняем эти данные в базу данных.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -30,7 +29,8 @@ namespace courseProject.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    DataContext.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    string hashPassword = Crypto.HashPassword(model.Password);
+                    DataContext.Users.Add(new User { Email = model.Email, Password = hashPassword });
                     await DataContext.SaveChangesAsync();
 
                     await Authenticate(model.Email); // аутентификация
@@ -58,14 +58,17 @@ namespace courseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                if (user != null)
+                User user = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user != null && Crypto.VerifyHashedPassword(user.Password, model.Password))
                 {
                     await Authenticate(model.Email); // аутентификация
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                else
+                {
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                }
             }
             return View(model);
         }
