@@ -1,11 +1,11 @@
 ﻿@*устанавливает модель представления - та сущность, которая будет доступна в представлении через объект Model*@
 
-@model List<Test>;
+@model courseProject.ViewModels.IndexViewModel;
 
 @{
     //Вначале объявляется заголовок с помощью выражения ViewData["Title"].
     //Этот заголовок затем вставляется на мастер-страницу.
-    ViewData["Title"] = "Тестики";
+    ViewData["Title"] = "Онлайн тесты";
 }
 
 <div class="home-container">
@@ -32,37 +32,15 @@
                         Категория
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        
+
                         @foreach (var category in ViewBag.Categories)
                         {
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Category"
-                           asp-route-id="@category.Id">@category.Name</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Category"
+                               asp-route-id="@category.Id">@category.Name</a>
                         }
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Фильтр
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item">Фильтр 1</button>
-                        <button class="dropdown-item">Фильтр 2</button>
-                        <button class="dropdown-item">Фильтр 3</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Популярность -->
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Популярность
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item">Сортировка 1</button>
-                    <button class="dropdown-item">Сортировка 2</button>
-                    <button class="dropdown-item">Сортировка 3</button>
-                </div>
             </div>
         </div>
 
@@ -70,19 +48,35 @@
         <!-- Карточки -->
         <div class="d-flex flex-wrap justify-content-between">
 
-            @foreach (Test test in Model)
+            @foreach (Test test in Model.Tests)
             {
-            <a class="test" asp-controller="Test" asp-action="Index" asp-route-id="@test.Id">
-                <div class="icon">
-                    <img src="@test.Icon" alt="Иконка">
-                </div>
-                <p class="name">@test.Name</p>
-            </a>
+                <a class="test" asp-controller="Test" asp-action="Index" asp-route-id="@test.Id">
+                    <div class="icon">
+                        <img src="@test.Icon" alt="Иконка">
+                    </div>
+                    <p class="name">@test.Name</p>
+                </a>
             }
 
         </div>
         <!-- Карточки -->
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <a asp-action="Index"
+               asp-route-numPage="@(Model.PageViewModel.PageNumber - 1)"
+               class="btn btn-outline-primary">
+                Назад
+            </a>
+        }
 
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <a asp-action="Index"
+               asp-route-numPage="@(Model.PageViewModel.PageNumber + 1)"
+               class="btn btn-outline-primary">
+                Вперед
+            </a>
+        }
     </div>
 </div>
 
