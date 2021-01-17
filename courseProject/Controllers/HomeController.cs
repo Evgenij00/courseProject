@@ -73,6 +73,21 @@ namespace courseProject.Controllers
             }
             return NotFound();
         }
+        public async Task<IActionResult> Search(string searchString)
+        {
+            if (searchString == null) return RedirectToAction("Index");
+
+            IQueryable<Test> tests = DataContext.Tests;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tests = tests.Where(t => t.Name.Contains(searchString));
+            }
+
+            List<Test> filteredTests = await tests.ToListAsync();
+
+            return View(filteredTests);
+        }
     }
 }
 //Во-первых, здесь удалены все ненужные нам методы - все кроме метода Index,
