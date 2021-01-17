@@ -24,7 +24,7 @@ namespace courseProject.Controllers
             //И в этот метод передаются все объекты из таблицы Tests в базе данных.
             //Для передачи данных нам достаточно использовать такую конструкцию: View(db.Tests.ToList());
 
-            int pageSize = 1;
+            int pageSize = 10;
 
             IQueryable<Test> tests = DataContext.Tests;
             int totalOfTests = await tests.CountAsync();
@@ -51,7 +51,7 @@ namespace courseProject.Controllers
 
             if (currentCategory != null)
             {
-                int pageSize = 1;
+                int pageSize = 10;
 
                 IQueryable<Test> tests = from t in DataContext.Tests
                                          where (t.CategoryId == categoryId)
