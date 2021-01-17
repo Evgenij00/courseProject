@@ -50,7 +50,7 @@
 
             @foreach (Test test in Model.Tests)
             {
-                <a class="test" asp-controller="Test" asp-action="Index" asp-route-id="@test.Id">
+                <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
                     <div class="icon">
                         <img src="@test.Icon" alt="Иконка">
                     </div>
