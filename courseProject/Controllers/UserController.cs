@@ -9,9 +9,12 @@ using System.Linq;
 using System.Collections.Generic;
 using courseProject.ViewModels;
 using сourseProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace courseProject.Controllers
 {
+
+    [Authorize]
     public class UserController : ApplicationController
     {
         public UserController(ApplicationDbContext context) : base(context) { }
@@ -20,14 +23,16 @@ namespace courseProject.Controllers
         {
             string userName = User.Identity.Name;
 
-            User currentUser = DataContext.Users.FirstOrDefault(u => u.Email == userName);
+            User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
 
-            if (currentUser == null)
-            {
-                return NotFound();
-            }
+            AccountViewModel model = new AccountViewModel();
 
-            return View(currentUser);
+            model.User = currentUser;
+            model.UserTests = (from ut in DataContext.UserTests.Include(ut => ut.Test)
+                               where (ut.UserId == currentUser.Id && ut.Favorite)
+                               select ut).ToList();
+
+            return View(model);
         }
 
         //TODO: валидация модели
