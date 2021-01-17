@@ -139,8 +139,22 @@ ul {
 .link-help-pass {
     align-self: flex-end;
 }
-/* / Форма регистрации и авторизации */
 
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+    .remember-me input {
+        margin-right: .5rem;
+    }
+
+    .remember-me label {
+        padding: 0;
+        margin: 0;
+    }
+/* / Форма регистрации и авторизации */
 /* Кнопка закрытия вопроса и самого теста */
 .close-test {
     display: flex;
@@ -189,49 +203,40 @@ ul {
 
 /* Account.html /////////////////////////////////////////////////////////////////////////////////////*/
 .account-container {
-    background-color: rgb(178, 173, 184);
+    background-color: rgb(238, 162, 118);
 }
 
 .inner-content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 3rem;
 }
-
-.buttons {
-    margin-bottom: 40px;
-}
-
-/* Карточки для кнопки "Я" */
-.container-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.card {
-    width: 15rem;
-    /* временно */
-    height: 250px;
-}
-/* / Карточки для кнопки "Я" */
 
 .settings {
     /* position: absolute; */
     display: inline-block;
-    background-color: rgb(195, 228, 241);
+    background-color: rgb(238, 162, 118);
     padding: 5px;
 }
 
-.setting1 {
-    background-color: rgb(195, 228, 241);
+.setting {
+    background-color: rgb(238, 187, 158);
     padding: 20px;
+    border: 5px solid rgb(238, 136, 118);
+    border-radius: 5px;
+    margin-bottom: 3rem;
 }
 
-.setting2 {
-    background-color: rgb(195, 228, 241);
-    padding: 20px;
+.avatar {
+    width: 175px;
 }
+
+    .avatar img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
 /* / Account.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 
