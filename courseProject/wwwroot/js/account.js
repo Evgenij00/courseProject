@@ -23,4 +23,17 @@ btnSetting2.addEventListener('click', event => {
     } else if (setting1.classList.contains('d-none') && setting2.classList.contains('d-none')) {
         setting2.classList.toggle('d-none')
     }
+})
+
+const btnChangeEmail = document.querySelector('#btn-change-email')
+const btnChangePassword = document.querySelector('#btn-change-password')
+const boxChangeEmail = document.querySelector('#box-change-email')
+const boxChangePassword = document.querySelector('#box-change-password')
+
+btnChangeEmail.addEventListener('click', event => {
+    boxChangeEmail.classList.toggle('d-none')
+})
+
+btnChangePassword.addEventListener('click', event => {
+    boxChangePassword.classList.toggle('d-none')
 }) 
