@@ -19,15 +19,26 @@ namespace courseProject.Controllers
 
         //Каждый метод контроллера по умоланию использует одноименное представление.
         //То есть метод Index будет использовать представление Index.cshtml.
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync(int numPage = 1)
         {
             //И в этот метод передаются все объекты из таблицы Tests в базе данных.
             //Для передачи данных нам достаточно использовать такую конструкцию: View(db.Tests.ToList());
 
-            //TODO: разобраться, необходим ли метод ToList()
-            List<Test> Tests = DataContext.Tests.ToList();
+            int pageSize = 1;
 
-            return View(Tests);
+            IQueryable<Test> tests = DataContext.Tests;
+            int totalOfTests = await tests.CountAsync();
+            List<Test> testsOfCurrentPage = await tests.Skip((numPage - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
+
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Tests = testsOfCurrentPage
+            };
+
+            return View(viewModel);
         }
 
         
