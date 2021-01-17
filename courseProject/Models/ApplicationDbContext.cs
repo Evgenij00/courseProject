@@ -19,8 +19,9 @@ namespace courseProject.Models
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<ResultTest> ResultTests { get; set; }
+        public DbSet<UserTest> UserTests { get; set; }
 
-        
+
         //По умолчанию у нас база данных отсутствует. Поэтому в конструктор ApplicationDbContext определен вызов Database.EnsureCreated(),
         //который при отсутствии базы данных автоматически создает ее. Если база данных уже есть, то ничего не происходит.
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) //Конструктор
