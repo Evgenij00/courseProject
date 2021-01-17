@@ -132,6 +132,32 @@ namespace courseProject.Controllers
             return RedirectToAction("Index", "Test", new { testId });
         }
 
+        public async Task Favorite(int testId, bool isFavorite)
+        {
+            int userId = await GetUserId();
+
+            if (isFavorite)
+            {
+                UserTest userTest = await DataContext.UserTests.FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TestId == testId);
+                if (userTest != null)
+                {
+                    userTest.Favorite = true;
+                    await DataContext.SaveChangesAsync();
+                }
+                else
+                {
+                    DataContext.UserTests.Add(new UserTest { UserId = userId, TestId = testId, Favorite = true });
+                    await DataContext.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                UserTest usertTest = await DataContext.UserTests.FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TestId == testId);
+                usertTest.Favorite = false;
+                await DataContext.SaveChangesAsync();
+            }
+        }
+
         [NonAction]
         public async Task<int> GetUserId()
         {

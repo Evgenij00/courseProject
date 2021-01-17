@@ -16,5 +16,6 @@ namespace courseProject.Models
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Birthday { get; set; }
+        public virtual List<UserTest> UserTests { get; set; }
     }
 }
