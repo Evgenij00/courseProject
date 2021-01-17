@@ -1,4 +1,4 @@
-﻿@model сourseProject.ViewModels.RegisterViewModel;
+﻿@model сourseProject.ViewModels.RegisterViewModel
 
 @{
     ViewData["Title"] = "Регистрация";
@@ -9,7 +9,6 @@
     <form class="login-form" method="post" asp-controller="Account" asp-action="Register">
         <h1 class="title">Регистрация</h1>
 
-        @*TODO: разобраться с asp-validation-summary="ModelOnly"*@
         <div asp-validation-summary="ModelOnly"></div>
         <div class="form-group">
             <input asp-for="Email" type="email" class="form-control" placeholder="Email" />
@@ -18,7 +17,6 @@
         <div class="form-group">
             <input asp-for="Password" type="password" class="form-control" placeholder="Пароль" />
         </div>
-        @* TODO: Повтор пароля на потом *@
 
         <button type="submit" class="btn btn-primary">Регистрация</button>
 
