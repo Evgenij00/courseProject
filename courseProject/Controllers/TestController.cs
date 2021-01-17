@@ -17,6 +17,13 @@ namespace courseProject.Controllers
         {
             if (testId == null) return RedirectToAction("Index", "Home");
 
+            int userId = await GetUserId();
+            UserTest userTest = DataContext.UserTests.FirstOrDefault(ut => ut.UserId == userId && ut.TestId == testId && ut.Finished);
+            if (userTest != null)
+            {
+                return RedirectToAction("ShowResult", userTest);
+            }
+
             Test test = await DataContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
             if (test != null)
             {
@@ -92,6 +99,37 @@ namespace courseProject.Controllers
                 return View(model);
             }
             return NotFound();
+        }
+
+        public async Task<ActionResult> ShowResult(UserTest userTest)
+        {
+
+            Test currentTest = await DataContext.Tests.FirstOrDefaultAsync(t => t.Id == userTest.TestId);
+            ResultTest result = await DataContext.ResultTests.FirstOrDefaultAsync(r => r.Id == userTest.ResultId);
+            Category category = await DataContext.Categories.FirstOrDefaultAsync(c => c.Id == currentTest.CategoryId);
+
+            ResultViewModel model = new ResultViewModel
+            {
+                Test = currentTest,
+                Category = category,
+                ResultTest = result,
+            };
+            return View("Result", model);
+        }
+
+        public async Task<ActionResult> RepeatTest(int? testId)
+        {
+            if (testId == null) return RedirectToAction("Index", "Home");
+
+            int userId = await GetUserId();
+            UserTest userTest = await DataContext.UserTests.FirstOrDefaultAsync(ut => ut.UserId == userId && ut.TestId == testId);
+            if (userTest != null)
+            {
+                userTest.Finished = false;
+                await DataContext.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index", "Test", new { testId });
         }
 
         [NonAction]
