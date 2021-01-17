@@ -28,32 +28,13 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (var category in ViewBag.Categories)
                         {
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Category"
-                           asp-route-id="@category.Id">@category.Name</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Category"
+                               asp-route-categoryId="@category.Id">@category.Name</a>
                         }
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Фильтр
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item">Фильтр 1</button>
-                        <button class="dropdown-item">Фильтр 2</button>
-                        <button class="dropdown-item">Фильтр 3</button>
-                    </div>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Популярность
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item">Сортировка 1</button>
-                    <button class="dropdown-item">Сортировка 2</button>
-                    <button class="dropdown-item">Сортировка 3</button>
-                </div>
+
             </div>
         </div>
         <!-- Карточки -->
@@ -69,9 +50,23 @@
                 </a>
             }
 
-         
-        </div>
 
+        </div>
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <form asp-controller="Home" asp-action="Category" asp-route-categoryId="@Model.Category.Id">
+                <input type="hidden" name="numPage" value="@(Model.PageViewModel.PageNumber - 1)" />
+                <button type="submit" class="btn btn-outline-primary">Назад</button>
+            </form>
+        }
+
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <form asp-controller="Home" asp-action="Category" asp-route-categoryId="@Model.Category.Id">
+                <input type="hidden" name="numPage" value="@(Model.PageViewModel.PageNumber + 1)" />
+                <button type="submit" class="btn btn-outline-primary">Вперед</button>
+            </form>
+        }
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
