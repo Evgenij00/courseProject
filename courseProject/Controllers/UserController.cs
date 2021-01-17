@@ -35,25 +35,19 @@ namespace courseProject.Controllers
             return View(model);
         }
 
-        //TODO: валидация модели
+        
         public async Task<IActionResult> ChangePersonalData(PersonalViewModel model)
         {
-            //if (ModelState.IsValid) {}
-            //return View(model);
-
+           
             string userName = User.Identity.Name;
-            User currentUser = DataContext.Users.FirstOrDefault(u => u.Email == userName);
 
-            if (currentUser != null)
-            {
-                // обновляем пользователя в бд
-                currentUser.FirstName = model.FirstName;
-                currentUser.LastName = model.LastName;
-                currentUser.Gender = model.Gender;
-                currentUser.Birthday = model.Birthday;
-                await DataContext.SaveChangesAsync();
-            }
+            User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
 
+            currentUser.FirstName = model.FirstName;
+            currentUser.LastName = model.LastName;
+            currentUser.Gender = model.Gender;
+            currentUser.Birthday = model.Birthday;
+            await DataContext.SaveChangesAsync();
             return RedirectToAction("Index", "User");
         }
 
