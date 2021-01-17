@@ -41,24 +41,35 @@ namespace courseProject.Controllers
             return View(viewModel);
         }
 
-        
-        public IActionResult Category(int? id)  // контроллер для страницы c уникальной категорией
+
+        public async Task<IActionResult> Category(int? categoryId, int numPage = 1)
         {
             //выполняем переадресацию на метод Index, который выводит список тестов.
-            if (id == null) return RedirectToAction("Index");
+            if (categoryId == null) return RedirectToAction("Index");
 
-            Category currentCategory = DataContext.Categories.FirstOrDefault(c => c.Id == id);
+            Category currentCategory = await DataContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
 
             if (currentCategory != null)
             {
-                CategoryViewModel model = new CategoryViewModel();
+                int pageSize = 1;
 
-                model.Category = currentCategory;
-                model.Tests = from t in DataContext.Tests
-                              where (t.CategoryId == id)
-                              select t; ;
+                IQueryable<Test> tests = from t in DataContext.Tests
+                                         where (t.CategoryId == categoryId)
+                                         select t;
 
-                return View(model);
+                int totalOfTests = await tests.CountAsync();
+                List<Test> testsOfCurrentPage = await tests.Skip((numPage - 1) * pageSize).Take(pageSize).ToListAsync();
+
+                PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
+
+                CategoryViewModel viewModel = new CategoryViewModel
+                {
+                    PageViewModel = pageViewModel,
+                    Tests = testsOfCurrentPage,
+                    Category = currentCategory
+                };
+
+                return View(viewModel);
             }
             return NotFound();
         }
