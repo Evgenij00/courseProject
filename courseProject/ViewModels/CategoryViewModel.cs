@@ -1,14 +1,12 @@
 ﻿using courseProject.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace courseProject.ViewModels
 {
     public class CategoryViewModel
     {
         public Category Category { get; set; }
-        public IEnumerable<Test> Tests { get; set; }
+        public List<Test> Tests { get; set; }
+        public PageViewModel PageViewModel { get; set; }
     }
 }
