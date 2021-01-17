@@ -18,7 +18,7 @@
             </div>
             <h1>@Model.Name</h1>
 
-            <form asp-controller="Test" asp-action="Question" asp-route-id="@Model.Id" method="post">
+            <form asp-controller="Test" asp-action="Question" asp-route-testId="@Model.Id" method="post">
                 <input type="hidden" name="id" value="@Model.Id" />
                 <button type="submit" class="btn btn-dark" id="btn-start">Начать тест</button>
             </form>

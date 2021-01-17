@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using courseProject.Models;
+using courseProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using courseProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using courseProject.ViewModels;
 
 namespace courseProject.Controllers
 {
@@ -13,49 +12,44 @@ namespace courseProject.Controllers
     {
         public TestController(ApplicationDbContext context) : base(context) { }
 
-        //[Route("Speaker/{id:int}")]
-        //[Route("/Speaker/Evaluations", Name = "speakerevals")]
-        public IActionResult Index(int? id) //TODO: использовать модель
+        [Authorize]
+        public async Task<IActionResult> IndexAsync(int? testId)
         {
-            if (id == null) return RedirectToAction("Index", "Home");
+            if (testId == null) return RedirectToAction("Index", "Home");
 
-            //TODO: разобраться, как вызвать Include после отбора данных по условию. (Пока вызывается перед отбором)
-            Test test = DataContext.Tests.Include(t => t.Questions.OrderBy(q => q.Number)).FirstOrDefault<Test>(t => t.Id == id);
-
+            Test test = await DataContext.Tests.FirstOrDefaultAsync(t => t.Id == testId);
             if (test != null)
             {
                 return View(test);
             }
+
             return NotFound();
         }
 
-        public IActionResult Question(int? id, int number = 1, int test_score = 0)
+        [Authorize]
+        public async Task<IActionResult> Question(int? testId, int number = 1, int testScore = 0)
         {
-            if (id == null) return RedirectToAction("Index");
+            if (testId == null) return RedirectToAction("Index", "Home");
 
-            Test test = DataContext.Tests.FirstOrDefault(test => test.Id == id);
-
-            //TODO: подумать, как упростить запрос. Найти нужный вопрос через тест, а не через контекст данных
-            Question question = DataContext.Questions.Include(q => q.Answers).FirstOrDefault<Question>(q => q.TestId == id && q.Number == number);
-
+            Test test = await DataContext.Tests.FirstOrDefaultAsync(test => test.Id == testId);
+            Question question = await DataContext.Questions.Include(q => q.Answers).FirstOrDefaultAsync(q => q.TestId == testId && q.Number == number);
             if (question != null)
             {
-                QuestionViewModel model = new QuestionViewModel();
-
-                model.Test = test;
-                model.Question = question;
-
                 foreach (var answer in question.Answers)
                 {
-                    answer.Score = answer.Score + test_score;
+                    answer.Score += testScore;
                 }
+
+                QuestionViewModel model = new QuestionViewModel
+                {
+                    Test = test,
+                    Question = question
+                };
                 return View(model);
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
+
         public IActionResult Result(int? id, int test_score)
         {
             if (id == null) return RedirectToAction("Index");
@@ -83,6 +77,14 @@ namespace courseProject.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [NonAction]
+        public async Task<int> GetUserId()
+        {
+            string userName = User.Identity.Name;
+            User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
+            return currentUser.Id;
         }
     }
 }
