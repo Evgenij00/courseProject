@@ -7,28 +7,7 @@ menuBtn.addEventListener('click', event => {
 })
 
 
-
-
 //Скрипт для страницы "account.html"
-
-const cards = document.querySelector('#cards')
-const myTests = document.querySelector('#my-tests')
-const btnCards = document.querySelector('#btn-cards')
-const btnMyTests = document.querySelector('#btn-my-tests')
-
-btnCards.addEventListener('click', event => {
-    if (cards.classList.contains('d-none')) {
-        cards.classList.toggle('d-none')
-        myTests.classList.toggle('d-none')
-    }
-})
-
-btnMyTests.addEventListener('click', event => {
-    if (myTests.classList.contains('d-none')) {
-        myTests.classList.toggle('d-none')
-        cards.classList.toggle('d-none')
-    }
-})
 
 const setting1 = document.querySelector('#setting1')
 const setting2 = document.querySelector('#setting2')
