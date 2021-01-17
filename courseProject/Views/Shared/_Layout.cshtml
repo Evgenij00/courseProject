@@ -19,8 +19,8 @@
 
         <!-- Контейнер -->
         <div class="d-flex">
-            <form class="form-inline my-2 my-lg-0 mr-2">
-                <input class="form-control mr-sm-2" type="search" placeholder="Введите название..." aria-label="Search">
+            <form asp-controller="Home" asp-action="Search" class="form-inline my-2 my-lg-0 mr-2">
+                <input name="searchString" class="form-control mr-sm-2" type="search" placeholder="Введите название..." aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
             </form>
             <a asp-controller="Account" asp-action="Login" type="button" class="btn btn-danger">Войти</a>
