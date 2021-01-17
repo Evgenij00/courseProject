@@ -1,4 +1,4 @@
-﻿@model courseProject.Models.Test;
+﻿@model courseProject.Models.Test
 
 @{
     ViewData["Title"] = "Уникальный тест";
@@ -13,13 +13,13 @@
     <div class="container pt-5">
         <div id="test-id" data-id="@Model.Id"></div>
         <div class="test-param">
-            <div class="icon_test">
+            <div class="icon-test">
                 <img src="@Model.Icon" alt="Иконка">
             </div>
             <h1>@Model.Name</h1>
 
-            <form asp-controller="Test" asp-action="Question" asp-route-testId="@Model.Id" method="post">
-                <input type="hidden" name="id" value="@Model.Id" />
+            <form asp-controller="Test" asp-action="Question" asp-route-id="@Model.Id" method="post">
+                <input type="hidden" name="testId" value="@Model.Id" />
                 <button type="submit" class="btn btn-dark" id="btn-start">Начать тест</button>
             </form>
             <div class="description">
