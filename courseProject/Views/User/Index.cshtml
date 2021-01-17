@@ -1,4 +1,4 @@
-﻿@model courseProject.Models.User;
+﻿@model courseProject.ViewModels.AccountViewModel;
 
 @{
     ViewData["Title"] = "Личный кабинет";
@@ -16,92 +16,119 @@
             <div class="row">
                 <div class="col">
                     <label for="first-name">Имя:*</label>
-                    <input asp-for="FirstName" type="text" value="@Model.FirstName" class="form-control" id='first-name' placeholder="Введите имя...">
+                    <input name="FirstName" type="text" value="@Model.User.FirstName" class="form-control" id='first-name' placeholder="Введите имя...">
                 </div>
                 <div class="col">
                     <label for="last-name">Фамилия:</label>
-                    <input asp-for="LastName" type="text" value="@Model.LastName" class="form-control" id='last-name' placeholder="Введите фамилию...">
+                    <input name="LastName" type="text" value="@Model.User.LastName" class="form-control" id='last-name' placeholder="Введите фамилию...">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div>Пол:*</div>
-                    <div class="form-check form-check-inline">
-                        <input asp-for="Gender" class="form-check-input" type="radio" name="gender" id="man" value="1">
-                        <label class="form-check-label" for="man">Мужской</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input asp-for="Gender" class="form-check-input" type="radio" name="gender" id="woman" value="2">
-                        <label class="form-check-label" for="woman">Женский</label>
+                    @if (Model.User.Gender == 0)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="man" value="1">
+                            <label class="form-check-label" for="man">Мужской</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="woman" value="2">
+                            <label class="form-check-label" for="woman">Женский</label>
+                        </div>
+                    }
+                    else if (Model.User.Gender == 1)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="man" value="1" checked>
+                            <label class="form-check-label" for="man">Мужской</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="woman" value="2">
+                            <label class="form-check-label" for="woman">Женский</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="man" value="1">
+                            <label class="form-check-label" for="man">Мужской</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="Gender" class="form-check-input" type="radio" id="woman" value="2" checked>
+                            <label class="form-check-label" for="woman">Женский</label>
+                        </div>
+                    }
+                 </div>
+                    <div class="col">
+                        <label class="form-check-label" for="birthday">Дата Рождения:*</label>
+                        <input name="Birthday" type="date" value="@Model.User.Birthday.Date.ToString("yyyy-MM-dd")" class="form-control" id='birthday' placeholder="Birthday">
                     </div>
                 </div>
-                <div class="col">
-                    <label class="form-check-label" for="birthday">Дата Рождения:*</label>
-                    <input asp-for="Birthday" type="date" value="@Model.Birthday.Date.ToString("d")" class="form-control" id='birthday' placeholder="Birthday">
-                </div>
+            <div>
+                <button type="submit" class="btn btn-outline-success">Сохранить</button>
+                <a asp-controller="User" asp-action="Index" class="btn btn-outline-secondary">Отменить</a>
             </div>
-            <input type="submit" class="btn btn-success">
-            <button type="button" class="btn btn-danger">Отменить</button>
         </form>
 
-        <form asp-controller="User" asp-action="ChangeRegisterData" class='setting d-none' id="setting2">
-            <div class="form-group">
-                <label for="email">Ваш Email:*</label>
-                <input asp-for="Email" type="email" value="@Model.Email" class="form-control" id="email" placeholder="Введите Email...">
+        <form asp-controller="User" asp-action="ChangeRegisterData" class="setting d-none" id="setting2">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="d-flex update-rdata">
+                <div class="">Ваш email*:</div>
+                <div class="user-register-data">@Model.User.Email</div>
+                <button type="button" class="btn btn-outline-primary" id="btn-change-email">Изменить</button>
             </div>
-            <div class="row">
-                <div class="col">
-                    <label for="email">Новый пароль:*</label>
-                    <input asp-for="Password" type="password" value="@Model.Password" class="form-control" placeholder="Введите пароль...">
-                </div>
-                @* TODO: Повтор пароля на потом *@
+            <div class="form-group d-none" id="box-change-email">
+                <label for="email">Новый Email:*</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Введите Email...">
             </div>
-            <input type="submit" class="btn btn-success">
-            <button type="button" class="btn btn-danger">Отменить</button>
+
+            <div class="d-flex update-rdata">
+                <div class="">Ваш Пароль*:</div>
+                <div class="user-register-data">*****</div>
+                <button type="button" class="btn btn-outline-primary" id="btn-change-password">Изменить</button>
+            </div>
+            <div class="form-group d-none" id="box-change-password">
+                <label for="email">Новый Пароль:*</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Введите Пароль...">
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-outline-success">Сохранить</button>
+                <a asp-controller="User" asp-action="Index" class="btn btn-outline-secondary">Отменить</a>
+            </div>
         </form>
 
         <div class="inner-content">
             <div class="avatar">
-                <img src="https://avatars0.githubusercontent.com/u/49844107?s=460&u=c43ff86775817a093fa6adbfda03f3b26a0acdda&v=4" alt="avatar">
+                <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg" alt="avatar">
             </div>
 
-            <h1 class="">@Model.FirstName</h1>
+            <h1 class="">@Model.User.FirstName</h1>
 
             <h2>Мои тесты</h2>
         </div>
 
         <!-- Карточки -->
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap justify-content-between" id="cards">
 
-            <a class="test" href="pages/test.html">
-                <div class='icon'>
-                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
-                </div>
-                <p class='name'>Название теста</p>
-            </a>
-
-            <a class="test" href="pages/test.html">
-                <div class='icon'>
-                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
-                </div>
-                <p class='name'>Название теста</p>
-            </a>
-
-            <a class="test" href="pages/test.html">
-                <div class='icon'>
-                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
-                </div>
-                <p class='name'>Название теста</p>
-            </a>
-
-            <a class="test" href="pages/test.html">
-                <div class='icon'>
-                    <img src="https://testometrika.com/upload/uf/066/066f89ecf51a3df5cbb83dcebebe5d7e.svg" alt="иконка">
-                </div>
-                <p class='name'>Название теста</p>
-            </a>
+            @foreach (var userTest in Model.UserTests)
+            {
+                <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@userTest.TestId">
+                    <div class='icon'>
+                        <img src="@userTest.Test.Icon" alt="иконка">
+                    </div>
+                    <p class='name'>@userTest.Test.Name</p>
+                    <div class="favorite isFavorite" data-test-id="@userTest.TestId">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                </a>
+            }
 
         </div>
         <!-- Карточки -->
     </div>
 </div>
+
+<script src="/js/account.js"></script>
