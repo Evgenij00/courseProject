@@ -7,6 +7,7 @@
     //Этот заголовок затем вставляется на мастер-страницу.
     ViewData["Title"] = "Онлайн тесты";
 }
+    string userName = User.Identity.Name;
 
 <div class="home-container">
 
@@ -46,16 +47,44 @@
 
 
         <!-- Карточки -->
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap justify-content-between" id="cards">
 
-            @foreach (Test test in Model.Tests)
+            @if (userName != null)
             {
-                <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
-                    <div class="icon">
-                        <img src="@test.Icon" alt="Иконка">
-                    </div>
-                    <p class="name">@test.Name</p>
-                </a>
+                foreach (Test test in Model.Tests)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+
+                        @if (test.Favorite)
+                        {
+                            <div class="favorite isFavorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="favorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                    </a>
+                }
+            }
+            else
+            {
+                foreach (Test test in Model.Tests)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+                    </a>
+                }
             }
 
         </div>
