@@ -32,6 +32,8 @@ namespace courseProject.Controllers
 
             PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
 
+            await MarkFavoriteTests();
+
             IndexViewModel viewModel = new IndexViewModel
             {
                 PageViewModel = pageViewModel,
@@ -62,6 +64,8 @@ namespace courseProject.Controllers
 
                 PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
 
+                await MarkFavoriteTests();
+
                 CategoryViewModel viewModel = new CategoryViewModel
                 {
                     PageViewModel = pageViewModel,
@@ -86,7 +90,28 @@ namespace courseProject.Controllers
 
             List<Test> filteredTests = await tests.ToListAsync();
 
+            await MarkFavoriteTests();
+
             return View(filteredTests);
+        }
+        [NonAction]
+        private async Task MarkFavoriteTests()
+        {
+            string userName = User.Identity.Name;
+
+            if (userName != null)
+            {
+                User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
+
+                List<UserTest> userTests = await (from ut in DataContext.UserTests.Include(ut => ut.Test)
+                                                  where (ut.UserId == currentUser.Id && ut.Favorite)
+                                                  select ut).ToListAsync();
+
+                foreach (var usertest in userTests)
+                {
+                    usertest.Test.Favorite = true;
+                }
+            }
         }
     }
 }
