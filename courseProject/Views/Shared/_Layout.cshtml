@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string userName = User.Identity.Name;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +27,23 @@
                 <input name="searchString" class="form-control mr-sm-2" type="search" placeholder="Введите название..." aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
             </form>
-            <a asp-controller="Account" asp-action="Login" type="button" class="btn btn-danger">Войти</a>
+            @if (userName != null)
+            {
+                <div class="dropdown show" style="padding-right: 90px;">
+                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="User" asp-action="Index">Мои тесты</a>
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Выйти</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" type="button" class="btn btn-outline-danger">Войти</a>
+            }
         </div>
     </nav>
 
