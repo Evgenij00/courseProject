@@ -77,10 +77,5 @@ namespace courseProject.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        private Task Authenticate(string email)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
