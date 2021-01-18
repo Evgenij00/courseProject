@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Категория";
+  
+    string userName = User.Identity.Name;
 }
 
 <div class="category-container">
@@ -10,7 +12,7 @@
         <!-- Заголовки -->
         <div class="category-param mb-5">
 
-            <div class="icon_test">
+            <div class="icon_category">
                 <img src="@Model.Category.Icon" alt="Иконка">
             </div>
             <h1>@Model.Category.Name</h1>
@@ -28,51 +30,74 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @foreach (var category in ViewBag.Categories)
                         {
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Category"
-                           asp-route-id="@category.Id">@category.Name</a>
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Category"
+                               asp-route-categoryId="@category.Id">@category.Name</a>
                         }
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Фильтр
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item">Фильтр 1</button>
-                        <button class="dropdown-item">Фильтр 2</button>
-                        <button class="dropdown-item">Фильтр 3</button>
-                    </div>
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Популярность
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item">Сортировка 1</button>
-                    <button class="dropdown-item">Сортировка 2</button>
-                    <button class="dropdown-item">Сортировка 3</button>
-                </div>
+
             </div>
         </div>
         <!-- Карточки -->
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap justify-content-between" id="cards">
 
-            @foreach (Test test in Model.Tests)
+            @if (userName != null)
             {
-                <a class="test" asp-controller="Test" asp-action="Index" asp-route-id="@test.Id">
-                    <div class="icon">
-                        <img src="@test.Icon" alt="Иконка">
-                    </div>
-                    <p class="name">@test.Name</p>
-                </a>
+                foreach (Test test in Model.Tests)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+
+                        @if (test.Favorite)
+                        {
+                            <div class="favorite isFavorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="favorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                    </a>
+                }
+            }
+            else
+            {
+                foreach (Test test in Model.Tests)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+                    </a>
+                }
             }
 
-         
-        </div>
 
+        </div>
+        @if (Model.PageViewModel.HasPreviousPage)
+        {
+            <form class="f-inline" asp-controller="Home" asp-action="Category" asp-route-categoryId="@Model.Category.Id">
+                <input type="hidden" name="numPage" value="@(Model.PageViewModel.PageNumber - 1)" />
+                <button type="submit" class="btn btn-outline-primary">Назад</button>
+            </form>
+        }
+
+        @if (Model.PageViewModel.HasNextPage)
+        {
+            <form class="f-inline" asp-controller="Home" asp-action="Category" asp-route-categoryId="@Model.Category.Id">
+                <input type="hidden" name="numPage" value="@(Model.PageViewModel.PageNumber + 1)" />
+                <button type="submit" class="btn btn-outline-primary">Вперед</button>
+            </form>
+        }
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</div> 
+
+<script src="/js/favorite.js"></script>

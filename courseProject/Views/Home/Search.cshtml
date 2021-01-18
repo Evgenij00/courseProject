@@ -1,0 +1,66 @@
+﻿@model List<Test>;
+
+@{
+    ViewData["Title"] = "Тесты";
+
+    string userName = User.Identity.Name;
+}
+
+<div class="home-container">
+
+    <!-- Основная часть -->
+    <div class="container pt-5">
+
+        <!-- Заголовки -->
+        <div class="titles mb-5">
+            <h1>Тесты онлайн</h1>
+            <h2>Результаты поиска</h2>
+        </div>
+
+        <!-- Карточки -->
+        <div class="d-flex flex-wrap justify-content-between" id="cards">
+
+            @if (userName != null)
+            {
+                foreach (Test test in Model)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+
+                        @if (test.Favorite)
+                        {
+                            <div class="favorite isFavorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="favorite" data-test-id="@test.Id">
+                                <i class="fa fa-heart"></i>
+                            </div>
+                        }
+                    </a>
+                }
+            }
+            else
+            {
+                foreach (Test test in Model)
+                {
+                    <a class="test" asp-controller="Test" asp-action="Index" asp-route-testId="@test.Id">
+                        <div class="icon">
+                            <img src="@test.Icon" alt="Иконка">
+                        </div>
+                        <p class="name">@test.Name</p>
+                    </a>
+                }
+            }
+
+        </div>
+        <!-- Карточки -->
+    </div>
+</div> 
+
+<script src="/js/favorite.js"></script>

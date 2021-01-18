@@ -19,37 +19,99 @@ namespace courseProject.Controllers
 
         //Каждый метод контроллера по умоланию использует одноименное представление.
         //То есть метод Index будет использовать представление Index.cshtml.
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync(int numPage = 1)
         {
             //И в этот метод передаются все объекты из таблицы Tests в базе данных.
             //Для передачи данных нам достаточно использовать такую конструкцию: View(db.Tests.ToList());
 
-            //TODO: разобраться, необходим ли метод ToList()
-            List<Test> Tests = DataContext.Tests.ToList();
+            int pageSize = 10;
 
-            return View(Tests);
+            IQueryable<Test> tests = DataContext.Tests;
+            int totalOfTests = await tests.CountAsync();
+            List<Test> testsOfCurrentPage = await tests.Skip((numPage - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
+
+            await MarkFavoriteTests();
+
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Tests = testsOfCurrentPage
+            };
+
+            return View(viewModel);
         }
 
-        
-        public IActionResult Category(int? id)  // контроллер для страницы c уникальной категорией
+
+        public async Task<IActionResult> Category(int? categoryId, int numPage = 1)
         {
             //выполняем переадресацию на метод Index, который выводит список тестов.
-            if (id == null) return RedirectToAction("Index");
+            if (categoryId == null) return RedirectToAction("Index");
 
-            Category currentCategory = DataContext.Categories.FirstOrDefault(c => c.Id == id);
+            Category currentCategory = await DataContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
 
             if (currentCategory != null)
             {
-                CategoryViewModel model = new CategoryViewModel();
+                int pageSize = 10;
 
-                model.Category = currentCategory;
-                model.Tests = from t in DataContext.Tests
-                              where (t.CategoryId == id)
-                              select t; ;
+                IQueryable<Test> tests = from t in DataContext.Tests
+                                         where (t.CategoryId == categoryId)
+                                         select t;
 
-                return View(model);
+                int totalOfTests = await tests.CountAsync();
+                List<Test> testsOfCurrentPage = await tests.Skip((numPage - 1) * pageSize).Take(pageSize).ToListAsync();
+
+                PageViewModel pageViewModel = new PageViewModel(totalOfTests, numPage, pageSize);
+
+                await MarkFavoriteTests();
+
+                CategoryViewModel viewModel = new CategoryViewModel
+                {
+                    PageViewModel = pageViewModel,
+                    Tests = testsOfCurrentPage,
+                    Category = currentCategory
+                };
+
+                return View(viewModel);
             }
             return NotFound();
+        }
+        public async Task<IActionResult> Search(string searchString)
+        {
+            if (searchString == null) return RedirectToAction("Index");
+
+            IQueryable<Test> tests = DataContext.Tests;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tests = tests.Where(t => t.Name.Contains(searchString));
+            }
+
+            List<Test> filteredTests = await tests.ToListAsync();
+
+            await MarkFavoriteTests();
+
+            return View(filteredTests);
+        }
+        [NonAction]
+        private async Task MarkFavoriteTests()
+        {
+            string userName = User.Identity.Name;
+
+            if (userName != null)
+            {
+                User currentUser = await DataContext.Users.FirstOrDefaultAsync(u => u.Email == userName);
+
+                List<UserTest> userTests = await (from ut in DataContext.UserTests.Include(ut => ut.Test)
+                                                  where (ut.UserId == currentUser.Id && ut.Favorite)
+                                                  select ut).ToListAsync();
+
+                foreach (var usertest in userTests)
+                {
+                    usertest.Test.Favorite = true;
+                }
+            }
         }
     }
 }
