@@ -3,6 +3,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
 p {
     padding: 0;
     margin: 0;
@@ -16,6 +20,10 @@ ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+.logo {
+    font-weight: 600;
 }
 /* / Общие стили */
 
@@ -85,20 +93,17 @@ ul {
 /* Основные Карточки */
 .test {
     display: flex;
+    position: relative;
     justify-content: space-around;
     align-items: center;
     width: 500px;
-    /* height: 75px; */
     padding: 10px 20px;
-    margin-bottom: 10px;
-    background-color: rgb(44, 126, 235);
-    color: azure;
+    margin-bottom: 25px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(68, 76, 92);
+    font-weight: 600;
     border-radius: 5px;
 }
-
-/* .icon {
-    padding-left: 20px;
-} */
 
 .icon img {
     height: 75px;
@@ -108,6 +113,17 @@ ul {
 .name {
     flex-grow: 1;
     text-align: center;
+    font-family: 'Nunito', sans-serif;
+}
+
+.favorite {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.isFavorite {
+    color: red;
 }
 /* / Основные Карточки */
 
@@ -115,7 +131,8 @@ ul {
 .login-container {
     display: flex;
     justify-content: center;
-    background-color: rgb(130, 212, 245);
+    background-color: rgb(226, 223, 252);
+    min-height: 90.75vh;
 }
 
 .login-form {
@@ -127,8 +144,15 @@ ul {
     padding: 20px;
     margin-top: 50px;
     margin-bottom: 50px;
-    background-color: rgb(194, 208, 248);
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
+}
+
+.title {
+    color: rgb(68, 76, 92);
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 35px;
 }
 
 .title,
@@ -139,22 +163,8 @@ ul {
 .link-help-pass {
     align-self: flex-end;
 }
-
-.remember-me {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-    .remember-me input {
-        margin-right: .5rem;
-    }
-
-    .remember-me label {
-        padding: 0;
-        margin: 0;
-    }
 /* / Форма регистрации и авторизации */
+
 /* Кнопка закрытия вопроса и самого теста */
 .close-test {
     display: flex;
@@ -172,14 +182,26 @@ ul {
 
 /* Index.html /////////////////////////////////////////////////////////////////////////////////////*/
 .home-container {
-    background-color: rgb(122, 109, 231);
+    background-color: rgb(226, 223, 252);
+    min-height: 90.75vh;
+}
+
+.titles h1,
+.titles h2 {
+    color: rgb(68, 76, 92);
+    font-weight: 600;
+}
+
+.titles h2 {
+    font-size: 16px;
 }
 /* / Index.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 
 /* Category.html /////////////////////////////////////////////////////////////////////////////////////*/
 .category-container {
-    background-color: rgb(218, 190, 190);
+    background-color: rgb(226, 223, 252);
+    min-height: 90.75vh;
 }
 
 .category-param {
@@ -188,22 +210,32 @@ ul {
     align-items: center;
 }
 
-.icon_test {
-    width: 50px;
-    height: 100px;
+.category-param {
+    color: rgb(68, 76, 92);
+    font-weight: 600;
 }
 
-    .icon_test img {
-        height: 100%;
-        width: auto;
+.icon_category {
+    width: 150px;
+}
+
+    .icon_category img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
     }
+
+.f-inline {
+    display: inline;
+}
 /* / Category.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 
 
 /* Account.html /////////////////////////////////////////////////////////////////////////////////////*/
 .account-container {
-    background-color: rgb(238, 162, 118);
+    background-color: rgb(226, 223, 252);
+    min-height: 90.75vh;
 }
 
 .inner-content {
@@ -213,19 +245,39 @@ ul {
     margin-bottom: 3rem;
 }
 
+    .inner-content h1,
+    .inner-content h2 {
+        color: rgb(68, 76, 92);
+        font-weight: 600;
+    }
+
+    .inner-content h2 {
+        font-size: 25px;
+    }
+
 .settings {
-    /* position: absolute; */
     display: inline-block;
-    background-color: rgb(238, 162, 118);
-    padding: 5px;
+    background-color: rgb(226, 223, 252);
+    padding: 10px;
 }
 
 .setting {
-    background-color: rgb(238, 187, 158);
+    background-color: rgb(255, 255, 255);
     padding: 20px;
-    border: 5px solid rgb(238, 136, 118);
     border-radius: 5px;
     margin-bottom: 3rem;
+}
+
+.current-data {
+    align-items: center;
+}
+
+.user-register-data {
+    margin: 0 10px;
+}
+
+.update-rdata {
+    margin-bottom: 15px;
 }
 
 .avatar {
@@ -242,11 +294,14 @@ ul {
 
 /* Question.html /////////////////////////////////////////////////////////////////////////////////////*/
 .question-container {
-    background-color: rgb(122, 109, 231);
+    background-color: rgb(87, 80, 133);
+    min-height: 100vh;
+    color: rgb(255, 255, 255);
 }
 
 .num-quest-wrap {
     padding: 0 10px;
+    font-weight: 600;
 }
 
 .num-quest {
@@ -257,28 +312,59 @@ ul {
     display: flex;
     flex-direction: column;
     padding: 15px 0;
+    font-weight: 600;
 }
 
 .answer {
     margin-bottom: 30px;
+    font-size: 16px;
 }
+
+    .answer label {
+        font-size: 20px;
+        padding-left: 30px;
+        font-weight: 300;
+    }
+
+        .answer label:hover {
+            color: rgb(194, 208, 248);
+            cursor: pointer;
+        }
 /* / Question.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 /* Result.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 .top-content {
-    background-color: rgb(96, 60, 155);
+    background-color: rgb(87, 80, 133);
 }
 
     .top-content button {
         margin: 10px 20px 0;
     }
+
+.titles-result h1,
+.titles-result h2 {
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+}
+
+.titles-result h2 {
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.text {
+    color: rgb(68, 76, 92);
+    font-weight: 600;
+}
 /* / Result.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 /* Test.html /////////////////////////////////////////////////////////////////////////////////////*/
 
 .test-container {
-    background-color: darkslateblue;
+    background-color: rgb(87, 80, 133);
+    min-height: 90.75vh;
 }
 
 .test-param {
@@ -288,7 +374,24 @@ ul {
     color: antiquewhite;
 }
 
+.icon-test {
+    width: 150px;
+}
+
+    .icon-test img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+    }
+
 .description {
     align-self: flex-start;
 }
 /* / Test.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+/* Serach.html /////////////////////////////////////////////////////////////////////////////////////*/
+
+.search-container {
+    background-color: darkslateblue;
+}
+/* / Search.html /////////////////////////////////////////////////////////////////////////////////////*/
