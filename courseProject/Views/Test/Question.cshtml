@@ -1,4 +1,4 @@
-﻿@model courseProject.ViewModels.QuestionViewModel;
+﻿@model courseProject.ViewModels.QuestionViewModel
 
 @{
     ViewData["Title"] = "Вопрос";
@@ -23,14 +23,12 @@
                 @foreach (var answer in Model.Question.Answers)
                 {
                     <div class="answer">
-                        @*TODO: использовать tagHelpers*@
-                        <input type="radio" name="test_score" value="@answer.Score" id="@answer.Id">
+                        <input type="radio" name="testScore" value="@answer.Score" id="@answer.Id">
                         <label for="@answer.Id">@answer.Name</label>
                     </div>
 
                 }
 
-                @*TODO: использовать tagHelpers*@
                 <input type="hidden" name="testId" value="@Model.Test.Id" />
                 <input type="hidden" name="number" value="@(Model.Question.Number + 1)" />
 
@@ -43,13 +41,11 @@
                 @foreach (var answer in Model.Question.Answers)
                 {
                     <div class="answer">
-                        @*TODO: использовать tagHelpers*@
-                        <input type="radio" name="test_score" value="@answer.Score" id="@answer.Id">
+                        <input type="radio" name="testScore" value="@answer.Score" id="@answer.Id">
                         <label for="@answer.Id">@answer.Name</label>
                     </div>
                 }
 
-                @*TODO: использовать tagHelpers*@
                 <input type="hidden" name="testId" value="@Model.Test.Id" />
 
                 <button type="submit" class="btn btn-secondary">Завершить</button>
